@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Employee>
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index Page";
+}
+
+
+<div class="card-deck">
+    @foreach (var employee in Model)
+    {
+        <div class="card m-3">
+            <div class="card-header">
+                <h3>@employee.Name</h3>
+            </div>
+            <div class="card-footer text-center">
+                <a asp-controller="home" asp-action="details" asp-route-id="@employee.ID" class="btn btn-primary">
+                    Show
+                </a>
+                <a href="@Url.Action("details","home",new { id = employee.ID })" class="btn btn-primary">
+                    Details
+                </a>
+                @Html.ActionLink("View", "details", "home", new { id = employee.ID })
+                <a asp-controller="home" asp-action="edit" asp-route-id="@employee.ID" class="btn btn-primary">Edit</a>
+
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts{ 
+<script></script>
+}

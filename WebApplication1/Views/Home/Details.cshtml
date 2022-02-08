@@ -1,0 +1,19 @@
+﻿@model Employee
+@*@model  WebApplication1.Models.Employee*@
+@*we no use above line because we move the namespace to viewImports File*@
+
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml"; will take it from _ViewStart here ovvewrite _ViewStart
+    ViewBag.Title = "Details Page";
+    var photoPath = "~/images/" + (Model.PhotoPath ?? "default.jpg");
+}
+<h1>Details Htmls</h1>
+@{
+    var employee = ViewData["employee"] as EmployeeManagement.Models.Employee;
+}
+<img src="@photoPath" asp-append-version="true" />
+<div>Name : @employee.Name</div>
+<div>Name : @ViewBag.employee.Name</div>
+<div>From Strongly Typed Name : @Model.Name</div>
+<a asp-controller="home" asp-action="index" class="btn btn-primary">Back</a>
+<a asp-controller="home" asp-action="edit" asp-route-id="@Model.ID" class="btn btn-primary">Edit</a>

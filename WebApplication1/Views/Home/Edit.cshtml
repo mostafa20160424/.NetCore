@@ -1,0 +1,47 @@
+﻿@model EmployeeEditViewModel
+@{
+    ViewBag.Title = "Edit";
+    var photoPath = "~/images/" + (Model.ExistingPhotoPath ?? "default.jpg");
+
+}
+
+    <form enctype="multipart/form-data" asp-controller="home" asp-action="create" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input hidden asp-for="ID" />
+        <input hidden asp-for="ExistingPhotoPath" />
+        <div class="form-group row">
+            <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
+            <input asp-for="Name" class="form-control" /> @*Choose Name like Model Property Name Called Model Bindign*@
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Email" class="col-sm-2 col-form-label">Email</label>
+            <input asp-for="Email" class="form-control" /> @*Choose Name like Model Property Name Called Model Bindign*@
+            <span asp-validation-for="Email" class="text-danger"></span>
+
+        </div>
+        <div class="form-group row">
+            <label asp-for="Department" class="col-sm-2 col-form-label">Department</label>
+            <select class="form-control" asp-for="Department" asp-items="Html.GetEnumSelectList<Dept>()">
+                <option value="">Please Select</option>
+            </select> @*Choose Name like Model Property Name Called Model Bindign*@
+        </div>
+        <div class="form-group row">
+            <input asp-for="Photo" class="form-control custom-file-input" type="file" /> @*Choose Name like Model Property Name Called Model Bindign*@
+            <label class="custom-file-label">Click to change Photo</label>
+        </div>
+        <img src="@photoPath" width="50" height="50" asp-append-version="true" />
+
+        <button type="submit" class="btn btn-primary mt-5">Update</button>
+
+        @section Scripts{
+            <script>
+                $(document).ready(function () {
+                    $(".custom-file-input").on('change', function () {
+                        var filename = $(this).val().split('\\').pop()
+                        $(this).next('.custom-file-label').html(filename)
+                    })
+                })
+            </script>
+        }
+    </form>
